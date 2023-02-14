@@ -1,0 +1,126 @@
+/*Création des variables*/
+
+:root{
+    --main-bg-color: whitesmoke;
+    --main-txt-color: black;
+    --navbar-bg-color: black;
+    --navbar-txt-color: whitesmoke;
+    --header-bg-color:grey;
+    --header-txt-color: black;
+
+}
+
+
+/*BODY*/
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--main-bg-color-color);
+}
+
+/*HEADER*/
+
+header{
+    background-color: var();
+}
+
+img#img_compte{
+  margin: 0;
+  width: 90px;
+  height: auto;
+}
+
+
+/*NAVBAR*/
+
+nav{
+
+    background-color: var(--navbar-bg-color);
+    min-width: fit-content;
+    min-height: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+nav > a{
+    text-decoration: none;
+    color: var(--navbar-txt-color); 
+    margin: 10px ;
+}
+
+
+
+/*FLEX*/
+
+/*SPACE-BETWEEN*/
+
+.space-between{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+/*FLEX-START*/
+
+.flex-start{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;  
+    align-items: center;
+  }
+
+
+
+/*FOOTER*/
+
+footer{
+    background-color: #020202;
+    padding: 20px;
+  }
+  
+  footer > h4{
+    font-size: x-large;
+    color:#5684c1;
+
+  }
+  footer > a, footer > div > a  {
+    margin:5px;
+    text-decoration: none;
+    color:#35639e;
+  }
+  footer > div > p{
+    color:#abcfff;
+  }
+
+
+  .footer-style > p{
+    text-align: center;
+  }
+  .footer-style > a{
+    
+    text-decoration: none;
+    color: #808080;
+  }
+  
+  .footer-style > a.policy{
+    color:#094FAC;
+    text-decoration: underline;
+  }
+    
+  div.logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  div.logo > a > img{
+    width: 50px;
+    height: auto;
+    background-color: #5684c1;
+  }
