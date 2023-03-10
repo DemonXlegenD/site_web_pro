@@ -1,10 +1,13 @@
 <?php
+include "configuration_admin.php";
 
-include "configuration.php";
-/*Vérifier si le formulaire a été soumis*/
+
+if(isset($_SESSION['admin']) and !empty($_SESSION['admin']))
+{
+
 if(isset($_POST['submit']))
 {
-    $erreur_signup ="";
+    $erreur1 ="";
     // Traiter le formulaire
     
     /*Identité de la personne*/
@@ -35,7 +38,6 @@ if(isset($_POST['submit']))
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("Erreur CSRF : le jeton est invalide.");
     }
-
     if(isset($name) and !empty($name) and preg_match('#^(?=.*[a-z])(?=.*[A-Z])#', $name)){
         
         if(isset($firstname) and !empty($firstname) and preg_match('#^(?=.*[a-z])(?=.*[A-Z])#', $firstname)){
@@ -56,7 +58,7 @@ if(isset($_POST['submit']))
                                     if($password == $confirm_password){
 
                                         
-                                        $sql = "INSERT INTO compte_client (id_c, nom_c, prenom_c, email_c, password_c, identifiant_c, telephone_c, date_anniversaire_c) VALUES (NULL, :name, :firstname, :email, :password, :identifiant, :telephone, :birthday)";
+                                        $sql = "INSERT INTO admin (id_a, nom_a, prenom_a, email_a, password_a, identifiant_a, telephone_a, date_anniversaire_a) VALUES (NULL, :name, :firstname, :email, :password, :identifiant, :telephone, :birthday)";
                                         $pre = $pdo->prepare($sql);
 
                                         $pre->execute(array(
@@ -70,75 +72,83 @@ if(isset($_POST['submit']))
                                         ));
                                         if(isset($reste_co) and !empty($reste_co))
                                         {
-                                            session_start();
-                                            $stmt = $pdo->prepare("SELECT * FROM compte_client WHERE nom_c=?");
+                                            $stmt = $pdo->prepare("SELECT * FROM admin WHERE nom_a=?");
 
                                             $stmt->bindParam(1,$name);
                                             $stmt->execute();
                                             $res = $stmt->fetchAll();
 
                                             foreach ( $res as $row ) {
-                                                $_SESSION['user']['identifiant'] = $row['identifiant_c']; 
-                                                $_SESSION['user']['nom'] = $row['nom_c']; 
-                                                $_SESSION['user']['prenom'] = $row['prenom_c']; 
-                                                $_SESSION['user']['email'] = $row['email_c']; 
-                                                $_SESSION['user']['password'] = $row['password_c']; 
-                                                $_SESSION['user']['telephone'] = $row['telephone_c']; 
-                                                $_SESSION['user']['anniversaire'] = $row['date_anniversaire_c']; 
+                                                $_SESSION['admin']['identifiant'] = $row['identifiant_a']; 
+                                                $_SESSION['admin']['nom'] = $row['nom_a']; 
+                                                $_SESSION['admin']['prenom'] = $row['prenom_a']; 
+                                                $_SESSION['admin']['email'] = $row['email_a']; 
+                                                $_SESSION['admin']['password'] = $row['password_a']; 
+                                                $_SESSION['admin']['telephone'] = $row['telephone_a']; 
+                                                $_SESSION['admin']['anniversaire'] = $row['date_anniversaire_a']; 
                                             }
                                         }
-
-                                        // Réinitialiser le jeton CSRF
-                                        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-                                        header("Location:../index.php");
+                                        
+                                        header("Location:../../index.php");
                                         exit();
                                     }else{
-                                        $erreur_signup ="Le mot de passe est différent";
-                                        header("Location:../form_signup.php");
-                                        exit(); 
+                                        $erreur1 ="Le mot de passe est différent";
+                                        header("Location: ../form_signup_admin.php");
+                                        exit();
                                     }
 
                                 }else{
-                                    $erreur_signup="Veuillez confirmer votre mot de passe";
-                                    header("Location:../form_signup.php");
-                                    exit(); 
+                                    $erreur1="Veuillez confirmer votre mot de passe";
+                                    header("Location: ../form_signup_admin.php");
+                                    exit();
                                 }
                             }else{
-                                $erreur_signup="Veuillez entrez un mot de passe";
-                                header("Location:../form_signup.php");
-                                exit(); 
+                                $erreur1="Veuillez entrez un mot de passe";
+                                header("Location: ../form_signup_admin.php");
+                                exit();
                             }
                         }else{
-                            $erreur_signup="Veuillez entrer un identifiant";
-                            header("Location:../form_signup.php");
-                            exit(); 
+                            $erreur1="Veuillez entrer un identifiant";
+                            header("Location: ../form_signup_admin.php");
+                            exit();
                         }
                     }else{
-                        $erreur_signup="Veuillez entrer votre numéro de téléphone";
-                        header("Location:../form_signup.php");
-                        exit(); 
+                        $erreur1="Veuillez entrer votre numéro de téléphone";
+                        header("Location: ../form_signup_admin.php");
+                        exit();
                     }
                 }else{
-                    $erreur_signup="Veuillez entrer votre date de naissance";
-                    header("Location:../form_signup.php");
-                    exit(); 
+                    $erreur1="Veuillez entrer votre date de naissance";
+                    header("Location: ../form_signup_admin.php");
+                    exit();
                 }
             }else{
-                $erreur_signup="Veuillez entrer votre email";
-                header("Location:../form_signup.php");
-                exit(); 
+                $erreur1="Veuillez entrer votre email";
+                header("Location: ../form_signup_admin.php");
+                exit();
             }
         }else{
-            $erreur_signup="Veuillez entrer votre prénom";
-            header("Location:../form_signup.php");
-            exit(); 
+            $erreur1="Veuillez entrer votre prénom";
+            header("Location: ../form_signup_admin.php");
+            exit();
         }
     }else{
-        $erreur_signup="Veuillez entrer votre nom";
-        header("Location:../form_signup.php");
-        exit(); 
+        $erreur1="Veuillez entrer votre nom";
+        header("Location: ../form_signup_admin.php");
+        exit();
     }
     
+}else{
+    $erreur1 ="Veuillez entrer vos informations";
+    header("Location: ../form_signup_admin.php");
+    exit();
 }
+}else{
+    header("Location: ../../index.php");
+    exit();
+}
+
+
+
+
 ?>

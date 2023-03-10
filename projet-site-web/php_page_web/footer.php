@@ -7,11 +7,11 @@
         </div>
         
         <p>
-          © Demon International Co., Ltd. All Rights Reserved.
+          © Celtic La Riche International Co., Ltd. All Rights Reserved.
           <br>
           Designed by
           <a id="designer" href="#" target="_blank">FAQ</a>
-          <a class="policy" href="#policy">Privacy Policy</a>
+          <a id="policy" href="#policy">Privacy Policy</a>
         </p>
         
       </div>
@@ -42,7 +42,7 @@
       </div>
 
       <div class="flex-start footer-style">
-        <h4>SUIVEZ SNOWSTORM</h4>
+        <h4>SUIVEZ CELTIC LA RICHE</h4>
         <div class="logo">
           <a href="mailto:flahalle@gaming.tech"><img src="img/reseaux/mail.png" alt="logo mail"></a>
           <a href="#"><img src="img/reseaux/brand-discord.png" alt="logo discord"></a>
